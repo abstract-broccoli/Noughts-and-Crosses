@@ -42,11 +42,11 @@ int isFull(int input[3][3]){
   return 1;
 }
 //Function Prints Out Result
-int print_Results(int Board[3][3]){
+int print_Results(int Board[3][3],int player){
   if (Winner(Board)) {
-    printf("Winner\n");
+    printf("Winner: Player %d\n",player);
   } else if (isFull(Board)) {
-    printf("Draw\n");
+    printf("Drawn Game\n");
   } 
 }
 
@@ -145,43 +145,46 @@ void SinglePlayer(int Board[3][3],char displayTokens[3][3]){
   COMPUTER=(HUMAN==1)?2:1;
   int turn=0;
   int position;
+  int player;
   while (!(Winner(Board)||isFull(Board))){
-    int player=turn%2+1;
+    player=turn%2+1;
     printf("Player %d Turn:\n",player);
     if (player == HUMAN){position=playerMove(Board);}
     if (player == COMPUTER){position=computerMove(Board,COMPUTER,HUMAN)-10;}
     update_game(player, position, Board, displayTokens);
     turn+=1;
   }
-  print_Results(Board);
+  print_Results(Board,player);
 }
 //Runs a Multiplayer Game
 void Mulitplayer(int Board[3][3],char displayTokens[3][3]){
   int turn=0;
   int position;
+  int player;
   while (!(Winner(Board)||isFull(Board))){
-    int player=turn%2+1;
+    player=turn%2+1;
     printf("Player %d Turn:\n",player);
     if (player == 1){position=playerMove(Board);}
     if (player==2){position=playerMove(Board);}
     update_game(player, position, Board, displayTokens);
     turn+=1;
   }
-  print_Results(Board);
+  print_Results(Board,player);
 }
 //Runs a SinglePlayer Game
 void NoPlayer(int Board[3][3],char displayTokens[3][3]){
   int turn=0;
   int position;
+  int player;
   while (!(Winner(Board)||isFull(Board))){
-    int player=turn%2+1;
+    player=turn%2+1;
     printf("Player %d Turn:\n",player);
     if (player == 1){position=computerMove(Board,1,2)-10;}
     if (player == 2){position=computerMove(Board,2,1)-10;}
     update_game(player, position, Board, displayTokens);
     turn+=1;
   }
-  print_Results(Board);
+  print_Results(Board,player);
 }
 // Main Function
 int main(){
